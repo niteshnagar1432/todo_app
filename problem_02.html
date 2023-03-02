@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <center>
+        <h2>Problem No :- 02</h2>
+        <h4>
+            The head of the linked list contains an unique integer, while nums is a subset on linked list values. The
+            output
+            needs to be a number of connected components in nums where two values are connected if they appear
+            consecutively in the linked list
+        </h4>
+        <p class="p2">
+        </p>
+    </center>
+    <script>
+        function numConnectedComponents(head, nums) {
+            const numSet = new Set(nums);
+            let numComponents = 0;
+            let curr = head;
+            let connected = false;
+
+            while (curr) {
+                if (numSet.has(curr.val)) {
+                    if (connected) {
+                        connected = false;
+                    } else {
+                        numComponents++;
+                    }
+                }
+
+                if (curr.next && numSet.has(curr.val) && numSet.has(curr.next.val)) {
+                    connected = true;
+                } else {
+                    connected = false;
+                }
+
+                curr = curr.next;
+            }
+
+            return numComponents;
+        }
+
+        function createLinkedList(arr) {
+            if (!arr.length) {
+                return null;
+            }
+
+            const head = { val: arr[0], next: null };
+            let curr = head;
+
+            for (let i = 1; i < arr.length; i++) {
+                const node = { val: arr[i], next: null };
+                curr.next = node;
+                curr = node;
+            }
+
+            return head;
+        }
+        
+        // const head = createLinkedList([0, 1, 2, 3]);
+        // var p2 = numConnectedComponents(head, [0, 1, 3]);
+        // document.querySelector(".p2").innerHTML(document.write("Answer Is :-"+p2));
+
+        const head = createLinkedList([0, 1, 2, 3,4]);
+        var p2 = numConnectedComponents(head, [0, 3, 1,4]);
+        document.querySelector(".p2").innerHTML(document.write("Answer Is :-"+p2));
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task List</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Task List</h1>
+        <form id="addTaskForm">
+            <label for="taskInput">Add Task:</label>
+            <input type="text" id="taskInput" name="taskInput" placeholder="Enter task...">
+            <input id="addTaskBtn" type="submit" value="Add Task">
+        </form>
+        <ul id="taskList">
+
+        </ul>
+    </div>
+    <div class="popUpBox">
+        <a href="./Completed Task.html">Completed Task</a>
+        <p class="success-p"><i class="ri-notification-3-line success"></i>Tast Completed Successfully....</p>
+        <p class="error-p"><i class="ri-alert-line error"></i>Server Error.....</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous">
+        </script>
+    <script src="./app.js"></script>
+    <script>
+        $(document).ready(() => {
+            function getData() {
+                $.ajax({
+                    url: "https://nitmessenger.000webhostapp.com/API/api.php",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        arr = data.data;
+                        console.log(arr);
+                        function myCards() {
+                            var clutter = "";
+                            arr.forEach(function (val, index) {
+                                clutter = clutter + `
+                                <li>${val.task}<div class="butoon"><button class="completed-Btn" data-cid="${val.id}">Completed</button><button
+                                    class="delete-Btn" data-did="${val.id}">Delete</button></div>
+                                </li>`;
+                            });
+                            document.querySelector('#taskList').innerHTML = clutter;
+                        }
+                        myCards();
+                    }
+                });
+            }
+            getData();
+
+            $('form').submit(function (event) {
+                event.preventDefault();
+                let taskTxt = $("#taskInput").val();
+                $.ajax({
+                    url: "https://nitmessenger.000webhostapp.com/API/api.php",
+                    type: "POST",
+                    data: JSON.stringify({
+                        task: taskTxt,
+                    }),
+                    success: function (Indata) {
+                        if (Indata.code == 200) {
+                            getData();
+                            errorShow();
+                        } else {
+                            getData();
+                            successShow();
+                        }
+                    }
+                });
+
+            });
+
+
+            $(document).on("click", ".delete-Btn", function () {
+                var dataId = $(this).data("did");
+                $.ajax({
+                    url: "https://nitmessenger.000webhostapp.com/API/delete.php",
+                    type: "POST",
+                    data: JSON.stringify({
+                        did: dataId,
+                    }),
+                    success: function (Indata) {
+                        console.log(Indata);
+                        console.log(Indata.code);
+                        if (Indata.code == 200) {
+                            getData();
+                            errorShow();
+                        } else {
+                            getData();
+                            successShow();
+                        }
+                    }
+                });
+            });
+
+            $(document).on("click", ".completed-Btn", function () {
+                var dataId = $(this).data("cid");
+                $.ajax({
+                    url: "https://nitmessenger.000webhostapp.com/API/1.php",
+                    type: "POST",
+                    data: JSON.stringify({
+                        cid: dataId,
+                    }),
+                    success: function (Indata) {
+                        if (Indata.code == 200) {
+                            getData();
+                        } else {
+                            getData();
+                        }
+                    }
+                });
+
+            });
+
+            function successShow() {
+                setInterval(function () {
+                    $(".success-p").hide("slow");
+                }, 3000);
+                $(".success-p").show("slow");
+            }
+            function errorShow() {
+                setInterval(function () {
+                    $(".error-p").hide("slow");
+                }, 3000);
+                $(".error-p").show("slow");
+            }
+        });
+    </script>
+</body>
+
+</html>

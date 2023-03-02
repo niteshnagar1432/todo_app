@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task List</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Complete Task List</h1>
+
+        <ul id="taskList">
+
+        </ul>
+    </div>
+    <div class="popUpBox">
+        <a href="./index.html">Task List</a>
+        <p class="success-p"><i class="ri-notification-3-line success"></i>Tast Completed Successfully....</p>
+        <p class="error-p"><i class="ri-alert-line error"></i>Server Error.....</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous">
+        </script>
+    <script src="./app.js"></script>
+    <script>
+        function getData() {
+            $.ajax({
+                url: "https://nitmessenger.000webhostapp.com/API/1.php",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    arr = data.data;
+                    console.log(arr);
+                    function myCards() {
+                        var clutter = "";
+                        arr.forEach(function (val, index) {
+                            clutter = clutter + `
+                                <li>${val.task} <span>${val.time}</span></li>`;
+                        });
+                        document.querySelector('#taskList').innerHTML = clutter;
+                    }
+                    myCards();
+                }
+            });
+        }
+        getData();
+    </script>
+</body>
+
+</html>

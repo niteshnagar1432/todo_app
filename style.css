@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    position: relative;
+    width: 100vw;
+    height: auto;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.popUpBox{
+    position: absolute;
+    right: .6%;
+    top: 1%;
+    
+    /* padding: 20px; */
+}
+.popUpBox p{
+    color: rgb(25, 25, 25);
+    font-weight: 700;
+    padding: 15px;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+}
+i{
+    font-size: 22px;
+    margin-right: 10px;
+}
+.error{
+    color: red;
+}
+.popUpBox .success-p{
+    background-color: #a5dba75f;
+    border: 2px solid green;
+    border-left: 4px solid green;
+    display: none;
+}
+.popUpBox .error-p{
+    display: none;
+    background-color: #eb585839;
+    border: 2px solid rgb(184, 12, 12);
+    border-left: 6px solid rgb(202, 20, 20);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+li.completed-Btn {
+    background-color: #ddd;
+}
+
+li button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+li button.delete-Btn {
+    background-color: #f44336;
+}

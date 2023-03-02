@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <center>
+        <h2>Problem No :- 03</h2>
+        <h4>Find the longest palindrome from the given string. Palindrome is a word, phrase, or sequence that reads the
+            same backwards as forwards, e.g. madam, civic, radar</h4>
+        <p class="p3">
+
+        </p>
+    </center>
+    <script>
+        function longestPalindrome(s) {
+            let longest = '';
+            for (let i = 0; i < s.length; i++) {
+                let left = i, right = i;
+                while (left >= 0 && right < s.length && s[left] === s[right]) {
+                    left--;
+                    right++;
+                }
+                const oddPalindrome = s.slice(left + 1, right);
+                if (oddPalindrome.length > longest.length) {
+                    longest = oddPalindrome;
+                }
+
+                left = i;
+                right = i + 1;
+                while (left >= 0 && right < s.length && s[left] === s[right]) {
+                    left--;
+                    right++;
+                }
+                const evenPalindrome = s.slice(left + 1, right);
+                if (evenPalindrome.length > longest.length) {
+                    longest = evenPalindrome;
+                }
+            }
+
+            return longest;
+        }
+
+        // var p3 = longestPalindrome("babad");
+        // document.querySelector(".p3").innerHTML(document.write("Answer Is :-" + p3));
+
+        var p3 = longestPalindrome("cbbd");
+        document.querySelector(".p3").innerHTML(document.write("Answer Is :-" + p3));
+    </script>
+</body>
+
+</html>
